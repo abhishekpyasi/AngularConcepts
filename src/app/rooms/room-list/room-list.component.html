@@ -1,0 +1,30 @@
+<app-header></app-header>
+<table class="table">
+  <tr>
+    <th>Even/Odd</th>
+
+    <th>Room Number</th>
+    <th>Room Type</th>
+    <th>Room Price</th>
+    <th>Room Amenities</th>
+    <th>CheckIn Date</th>
+  </tr>
+  <tr
+    [ngClass]="e ? 'even' : 'odd'"
+    *ngFor="let room of rooms; let e = even; let o = odd"
+  >
+    <td>{{ e ? "even" : "odd" }}</td>
+
+    <td>{{ room.roomNo }}</td>
+    <td>{{ room.roomType }}</td>
+    <td>{{ room.price }}</td>
+
+    <td>{{ room.aminities }}</td>
+    <td>{{ room.checkinTime }}</td>
+    <td>
+      <button class="btn btn-primary" (click)="selectedRoom(room)">
+        Select
+      </button>
+    </td>
+  </tr>
+</table>

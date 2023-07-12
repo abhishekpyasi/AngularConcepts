@@ -1,0 +1,18 @@
+<div></div>
+<div [hidden]="hideRoom">
+  <div>{{ text }}</div>
+  <div>{{ noofRooms }}</div>
+</div>
+
+<h2>{{ title }}</h2>
+<div *ngIf="rooms.availableRooms > 0">Rooms List</div>
+
+<button class="button button-primary" (click)="addRoom()">Add room</button>
+
+<app-room-list
+  [rooms]="roomList"
+  [listTitle]="title"
+  (selectRoom)="roomSelected($any($event))"
+>
+</app-room-list>
+<button (click)="toggle()" class="button">toggle</button>
