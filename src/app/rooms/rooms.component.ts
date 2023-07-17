@@ -8,13 +8,14 @@ import { RoomService } from "./room.service";
   templateUrl: "./rooms.component.html",
   styleUrls: ["./rooms.component.css"],
 })
-export class RoomsComponent implements OnInit, AfterViewInit {
+export class RoomsComponent implements OnInit {
+  rooms$ = this.roomService.getList();
+
   constructor(private roomService: RoomService) {}
   ngOnInit(): void {
-    this.roomList = this.roomService.getList();
-  }
-  ngAfterViewInit(): void {
-    throw new Error("Method not implemented.");
+    this.roomService.getRoom$.subscribe((rooms) => (this.roomList = rooms));
+
+    this.roomService.getPhotos().subscribe((data) => console.log(data));
   }
   title = "Room List";
   text: string = "No of Rooms";
@@ -40,19 +41,47 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   }
 
   addRoom() {
-    const room: RoomList = {
-      roomNo: 4,
+    const room = {
+      // roomNo: "4",
       roomType: "Premium Room",
-      aminities:
+      amenities:
         "Air Conditioner,  TV, Bathroom, Kitchen , Wi-Fi,Electric Kettle",
       price: 500,
       photos:
         "https://media.istockphoto.com/id/1398814566/photo/interior-of-small-apartment-living-room-for-home-office.jpg?s=2048x2048&w=is&k=20&c=O7ISCr88F9odUKdXIpbfJ5E-_WAHSxMH67PIyZR4PAA=",
       checkinTime: new Date("11-Nov-2021"),
       checkoutTime: new Date("12-Nov-2021"),
+      rating: 4.5,
     };
     //this.roomList.push(room);
 
-    this.roomList = [...this.roomList, room];
+    // this.roomList = [...this.roomList, room];
+
+    this.roomService.addRoom(room).subscribe((data) => {
+      this.roomList = data;
+    });
+  }
+
+  editRoom() {
+    const room: RoomList = {
+      roomNumber: "3",
+      roomType: "Deluxe Room",
+      amenities:
+        "Air Conditioner,  TV, Bathroom, Kitchen , Wi-Fi,Electric Kettle",
+      price: 500,
+      photos:
+        "https://media.istockphoto.com/id/1398814566/photo/interior-of-small-apartment-living-room-for-home-office.jpg?s=2048x2048&w=is&k=20&c=O7ISCr88F9odUKdXIpbfJ5E-_WAHSxMH67PIyZR4PAA=",
+      checkinTime: new Date("11-Nov-2021"),
+      checkoutTime: new Date("12-Nov-2021"),
+      rating: 4.5,
+    };
+
+    this.roomService.editRoom(room).subscribe((data) => (this.roomList = data));
+  }
+
+  deleteRoom() {
+    this.roomService.delete("3").subscribe((data) => {
+      this.roomList = data;
+    });
   }
 }

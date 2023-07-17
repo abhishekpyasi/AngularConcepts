@@ -1,4 +1,3 @@
-<app-header></app-header>
 <table class="table">
   <tr>
     <th>Even/Odd</th>
@@ -15,16 +14,22 @@
   >
     <td>{{ e ? "even" : "odd" }}</td>
 
-    <td>{{ room.roomNo }}</td>
+    <td>{{ room.roomNumber }}</td>
     <td>{{ room.roomType }}</td>
     <td>{{ room.price }}</td>
 
-    <td>{{ room.aminities }}</td>
+    <td>{{ room.amenities }}</td>
     <td>{{ room.checkinTime }}</td>
     <td>
-      <button class="btn btn-primary" (click)="selectedRoom(room)">
-        Select
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/rooms', room.roomNumber]"
+      >
+        Book Room
       </button>
+      <!-- <button class="btn btn-primary" (click)="selectedRoom(room)">
+        Select
+      </button> -->
     </td>
   </tr>
 </table>

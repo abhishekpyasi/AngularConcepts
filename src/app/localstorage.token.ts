@@ -1,6 +1,6 @@
 import { InjectionToken } from "@angular/core";
 
-export const LocalStorageToken = new InjectionToken<any>("local storage", {
+export const localStorageToken = new InjectionToken<any>("local storage", {
   providedIn: "root",
   factory() {
     return localStorage;

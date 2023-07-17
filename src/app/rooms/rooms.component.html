@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div></div>
 <div [hidden]="hideRoom">
   <div>{{ text }}</div>
@@ -7,12 +9,18 @@
 <h2>{{ title }}</h2>
 <div *ngIf="rooms.availableRooms > 0">Rooms List</div>
 
-<button class="button button-primary" (click)="addRoom()">Add room</button>
+<button class="button button-primary" routerLink="add">Add room</button>
 
 <app-room-list
-  [rooms]="roomList"
+  [rooms]="rooms$ | async"
   [listTitle]="title"
   (selectRoom)="roomSelected($any($event))"
 >
 </app-room-list>
+
 <button (click)="toggle()" class="button">toggle</button>
+
+<button (click)="editRoom()" class="button">Edit Room</button>
+<button (click)="deleteRoom()" class="button">Delete Room</button>
+
+<router-outlet></router-outlet>

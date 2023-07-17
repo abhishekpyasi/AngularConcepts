@@ -19,9 +19,8 @@ import { Room, RoomList } from "../room";
 export class RoomListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    console.log(changes["listTitle"].currentValue.toUpperCase());
   }
-  @Input() rooms: RoomList[] = [];
+  @Input() rooms: RoomList[] | null = [];
   @Input() listTitle = "";
 
   @Output() selectRoom = new EventEmitter<RoomList>();
